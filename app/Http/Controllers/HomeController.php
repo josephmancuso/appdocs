@@ -46,7 +46,7 @@ class HomeController extends Controller
         $singleRepo = $repo = $client->api('repo')->showById($id);
 
         # save repository in repo
-        if (!Repositories::where('name', $singleRepo['name'])) {
+        if (!Repositories::where('name', $singleRepo['name'])->first()) {
             $repository = new Repositories();
             $repository->repo_id = $singleRepo['id'];
             $repository->user_id = Auth::user()->id;
@@ -56,9 +56,10 @@ class HomeController extends Controller
         } else {
             $repository = Repositories::where('repo_id', $singleRepo['id'])->first();
         }
+        $repoList = Repositories::where('user_id', Auth::user()->id)->get();
 
         $repos = $client->api('user')->repositories('josephmancuso');
-        return view('home-repo', compact('repos', 'id', 'singleRepo', 'repository'));
+        return view('home-repo', compact('repos', 'id', 'singleRepo', 'repository', 'repoList'));
     }
 
     public function detail($id) 

@@ -123,7 +123,8 @@ class MarkdownController extends Controller
         $repository = Repositories::where('repo_id', $response['repository']['id'])->first();
 
         if ($repository->wiki) {
-            exec("git clone https://github.com/$username/$repo.wiki.git " . $additional);
+            $output = shell_exec("git clone https://github.com/$username/$repo.wiki.git " . $additional . "2>&1");
+            return dd($output);
         } else {
             exec("git clone https://github.com/$username/$repo.git " . $additional);
         }
@@ -136,7 +137,10 @@ class MarkdownController extends Controller
         $this->removeDirectory(base_path("public/".$additional));
 
         if ($repository->wiki) {
-            exec("git clone https://github.com/$username/$repo.wiki.git " . $additional);
+            // exec("git clone https://github.com/$username/$repo.wiki.git " . $additional);
+            // echo exec("ls 2>&1");
+            $repo = new \Cz\Git\GitRepository;
+            // exec(escapeshellcmd("git clone https://github.com/$username/$repo.wiki.git " . $additional . "2>&1"), $output, $status);
         } else {
             exec("git clone https://github.com/$username/$repo.git " . $additional);
         }
@@ -170,5 +174,17 @@ class MarkdownController extends Controller
 
         rsort($clean);
         return array_values($clean);
+    }
+
+    public function testFetch()
+    {
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', 'https://api.github.com/repos/josephmancuso/masonite/contents/docs');
+        $response = json_decode($res->getBody()->getContents());
+
+        foreach($response as $doc) {
+            $getFile = $client->request('GET', 'https://raw.githubusercontent.com/josephmancuso/masonite/master/docs/README.md');
+            file_put_contents(base_path('public/test/'.$doc->name), $getFile->getBody()->getContents());
+        }
     }
 }

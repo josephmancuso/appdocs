@@ -24,10 +24,11 @@ Route::get('/integration/github', 'auth\LoginController@githubFromProvider');
 
 
 Route::get('/download/{username}/{repo}', 'MarkdownController@download');
+Route::get('/testing', 'MarkdownController@testFetch');
 
 Route::post('/hook', 'UpdateController@hook');
 
-Route::domain('{repo}.appdoc.test')->group(function () {
+Route::domain('{repo}.orderinghero.com')->group(function () {
     // show the default version
     Route::get('/', 'MarkdownController@show');
 
