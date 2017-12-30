@@ -13,7 +13,7 @@
 
 // Route::get('/', 'WelcomeController@show');
 
-Route::domain('{repo}.orderinghero.com')->group(function () {
+Route::domain('{repo}.'.env('SUBDOMAIN_URL'))->group(function () {
     // show the default version
     Route::get('/', 'MarkdownController@show');
 
@@ -28,6 +28,8 @@ Route::domain('{repo}.orderinghero.com')->group(function () {
 });
 
 Route::get('/home', 'HomeController@show');
+Route::get('/home/private', 'HomeController@showPrivate');
+Route::get('/home/organization', 'HomeController@showOrganization');
 Route::get('/home/repo/add/{id}', 'HomeController@repo');
 Route::get('/home/repo/{id}', 'HomeController@detail')->name('repoDetails');
 Route::post('/home/repo/{id}', 'HomeController@detailStore');

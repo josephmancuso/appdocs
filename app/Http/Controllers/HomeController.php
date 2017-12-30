@@ -35,9 +35,34 @@ class HomeController extends Controller
 
         $repoList = Repositories::where('user_id', Auth::user()->id)->get();
 
+        $repoType = 'Public Repositories';
+
+        return view('dashboard.home', compact('repos', 'repoList', 'repoType'));
+    }
+
+    public function showPrivate()
+    {
+        // get private repositories
+        $repos = Auth::user()->privateRepositories();
+
+        $repoList = Repositories::where('user_id', Auth::user()->id)->get();
+
+        $repoType = 'Private Repositories';
+
+        return view('dashboard.home', compact('repos', 'repoList', 'repoType'));
+    }
+
+    
+    public function showOrganization()
+    {
+        // get private repositories
         $organizations = Auth::user()->getOrganizationRepositories();
 
-        return view('home', compact('repos', 'repoList', 'organizations'));
+        $repoList = Repositories::where('user_id', Auth::user()->id)->get();
+
+        $repoType = 'Organization Repositories';
+
+        return view('dashboard.home', compact('repos', 'repoList', 'organizations', 'repoType'));
     }
 
     public function repo($id)
@@ -54,6 +79,7 @@ class HomeController extends Controller
             $repository->repo_id = $singleRepo['id'];
             $repository->user_id = Auth::user()->id;
             $repository->owner = $singleRepo['owner']['id'];
+            $repository->docs_location = 'docs';
 
             if (!Repositories::where('name', $singleRepo['name'])->exists()) {
                 $repository->name = $singleRepo['name'];
@@ -64,7 +90,7 @@ class HomeController extends Controller
                     //
                 }
             }
-            
+
             $repository->save();
             
             if (!$repository->name) {
@@ -78,7 +104,9 @@ class HomeController extends Controller
 
         $repos = Auth::user()->repositories();
         $organizations = Auth::user()->getOrganizationRepositories();
-        return view('home-repo', compact('repos', 'id', 'singleRepo', 'repository', 'repoList', 'organizations'));
+
+        return redirect()->route('repoDetails', ['id' => $repository->repo_id])->with(['message' => "Great! You're repository has been verified. You can optionally add this webhook: <code>http://".env('APP_URL')."/hook</code> to your settings so we can maintain your documentation for you. More info can be found at the bottom of this page."]);
+        // return view('home-repo', compact('repos', 'id', 'singleRepo', 'repository', 'repoList', 'organizations'));
     }
 
     public function detail($id) 
@@ -92,10 +120,10 @@ class HomeController extends Controller
 
         $repos = Auth::user()->repositories();
 
-        $repoVersions = (new MarkdownController)->cleanDirectory(base_path("public/$repository->name"));
+        $repoVersions = (new MarkdownController)->cleanDirectory(base_path("repos/$repository->name"));
         $organizations = Auth::user()->getOrganizationRepositories();
 
-        return view('home-detail', compact('repos', 'id', 'singleRepo', 'repository', 'repoList', 'repoVersions', 'organizations'));
+        return view('dashboard.details', compact('repos', 'id', 'singleRepo', 'repository', 'repoList', 'repoVersions', 'organizations'));
     }
 
     public function detailStore($id, Request $request)
@@ -111,7 +139,7 @@ class HomeController extends Controller
             }
 
             // need to change the name of the directory as well.
-            rename(base_path("public/$repo->name"), base_path("public/$request->name"));
+            rename(base_path("repos/$repo->name"), base_path("repos/$request->name"));
         }
 
         $repo->name = $request->input('name');

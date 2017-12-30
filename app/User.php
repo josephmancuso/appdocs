@@ -4,6 +4,8 @@ namespace App;
 
 use Laravel\Spark\User as SparkUser;
 
+use App\Repositories;
+
 class User extends SparkUser
 {
     /**
@@ -64,6 +66,34 @@ class User extends SparkUser
         return $this->github()->currentUser()->repositories();
     }
 
+    public function publicRepositories()
+    {
+        $Collection = collect();
+        
+        foreach($this->repositories() as $repo){
+            // if the repository is private
+            if (!$repo['private']) {
+                $Collection->push($repo);
+            }
+        }
+
+        return $Collection;
+    }
+
+    public function privateRepositories()
+    {
+        $Collection = collect();
+        
+        foreach($this->repositories() as $repo){
+            // if the repository is private
+            if ($repo['private']) {
+                $Collection->push($repo);
+            }
+        }
+
+        return $Collection;
+    }
+
     public function organizations()
     {
         return $this->github()->currentUser()->memberships()->all();
@@ -90,6 +120,24 @@ class User extends SparkUser
         }
 
         return $listOfRepos;
+    }
 
+    public function canCreateRepos()
+    {
+        if($this->subscribedToPlan(['private', 'organization'])) {
+            return true;
+        }
+
+        if ($this->reposLeft() <= 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function reposLeft()
+    {
+        return 3 - Repositories::where('user_id', $this->id)->count();
+        // return 3;
     }
 }

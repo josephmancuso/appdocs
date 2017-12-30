@@ -54,8 +54,28 @@ class SparkServiceProvider extends ServiceProvider
 
         Spark::freePlan()
             ->features([
-                'Host documentation on your repos'
+                '3 Public Repositories',
+                'Base Theme',
+                'Version Control on Releases'
             ]);
+        
+        Spark::plan('Private Plan', 'private')
+            ->price(9)
+            ->features([
+                'Unlimited Private And Public Repositories',
+                'All Themes',
+                'Version Control On Releases'
+            ]);
+        
+        Spark::plan('Organization Plan', 'organization')
+            ->price(12)
+            ->features([
+                'Unlimited Private, Public, and Organization Repositories',
+                'All Themes',
+                'Version Control On Releases'
+            ]);
+        
+        
 
         // Spark::plan('Basic', 'provider-id-1')
         //     ->price(10)
