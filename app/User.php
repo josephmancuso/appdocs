@@ -53,6 +53,43 @@ class User extends SparkUser
 
     public function github()
     {
-        return app('github.factory')->make(['token' => $this->github_token, 'method' => 'token']);
+        $client = new \Github\Client(); 
+        $client->authenticate($this->github_token, null, \Github\Client::AUTH_HTTP_TOKEN);
+        return $client;
+        // return app('github.factory')->make(['token' => $this->github_token, 'method' => 'token']);
+    }
+
+    public function repositories()
+    {
+        return $this->github()->currentUser()->repositories();
+    }
+
+    public function organizations()
+    {
+        return $this->github()->currentUser()->memberships()->all();
+    }
+
+    public function organizationByName($name)
+    {
+        return $this->github()->currentUser()->memberships()->organization($name);
+    }
+
+    public function getOrganizationRepositories($name = false)
+    {
+        // get all the organizations
+        $repos = $this->organizations();
+        $listOfRepos = [];
+
+        // loop through them and get their repositories
+        if (!$name) {
+            // get all the organization repositories
+            foreach($repos as $organization) {
+                $organizationName = $organization['organization']['login'];
+                $listOfRepos[$organizationName] = $this->github()->api('organization')->repositories($organizationName);
+            }
+        }
+
+        return $listOfRepos;
+
     }
 }

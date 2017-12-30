@@ -44,7 +44,7 @@ class LoginController extends Controller
 
     public function githubToProvider()
     {
-        return Socialite::driver('github')->scopes(['read:user', 'public_repo'])->redirect();
+        return Socialite::driver('github')->scopes(['read:user', 'repo'])->redirect();
     }
 
     public function githubFromProvider()
@@ -65,6 +65,10 @@ class LoginController extends Controller
     private function findOrCreateUser($githubUser)
     {
         if ($authUser = User::where('github_id', $githubUser->id)->first()) {
+            $authUser->github_token = $githubUser->token;
+            $authUser->github_id = $githubUser->id;
+            $authUser->github_username = $githubUser->user['login'];
+            $authUser->save();
             return $authUser;
         }
 
@@ -72,7 +76,8 @@ class LoginController extends Controller
             'name' => $githubUser->name,
             'email' => $githubUser->email,
             'github_token' => $githubUser->token,
-            'github_id' => $githubUser->id
+            'github_id' => $githubUser->id,
+            'github_username' => $githubUser->user['login']
         ]);
     }
 }

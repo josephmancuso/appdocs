@@ -41,7 +41,7 @@ class SparkServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $usesApi = true;
+    protected $usesApi = false;
 
     /**
      * Finish configuring Spark for the application.
@@ -54,13 +54,13 @@ class SparkServiceProvider extends ServiceProvider
 
         Spark::freePlan()
             ->features([
-                'First', 'Second', 'Third'
+                'Host documentation on your repos'
             ]);
 
-        Spark::plan('Basic', 'provider-id-1')
-            ->price(10)
-            ->features([
-                'First', 'Second', 'Third'
-            ]);
+        // Spark::plan('Basic', 'provider-id-1')
+        //     ->price(10)
+        //     ->features([
+        //         'First', 'Second', 'Third'
+        //     ]);
     }
 }

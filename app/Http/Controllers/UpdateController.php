@@ -13,12 +13,12 @@ class UpdateController extends Controller
         $response = json_decode($request->getContent(), true);
         $repo = explode('/', $response['repository']['full_name']);
 
-        if ($value == 'gollum') {
-            (new MarkdownController)->sync($response, $repo[0], $repo[1], $repo[1].'/current');
-            return 'updated';
-        } elseif ($value == ('release')) {
-            (new MarkdownController)->download($response, $repo[0], $repo[1], $repo[1].'/'.$response['release']['tag_name']);
-            return 'pushed';
+        if ($value == 'gollum' || $value == 'push') {
+            return (new MarkdownController)->sync($response, $repo[0], $repo[1], 'current');
+            // return 'updated or pushed';
+        } elseif ($value == 'release') {
+            (new MarkdownController)->sync($response, $repo[0], $repo[1], $response['release']['tag_name']);
+            return 'released';
         } else {
             return 'no value';
         }
