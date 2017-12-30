@@ -46,7 +46,7 @@ class MarkdownController extends Controller
             $code = str_replace($search_string, "<span style='background-color: yellow; font-weight: bold'>$search_string</span>", $code);
         }
 
-        return view('themes.cleanblue.code', compact('code', 'pages', 'title', 'versions', 'repository'));
+        return view("themes.$repository->theme.code", compact('code', 'pages', 'title', 'versions', 'repository'));
     }
 
     public function single($repo, $slug, Request $request)
@@ -73,7 +73,7 @@ class MarkdownController extends Controller
             $code = str_replace($search_string, "<span style='background-color: yellow; font-weight: bold'>$search_string</span>", $code);
         }
 
-        return view('themes.cleanblue.code', compact('code', 'pages', 'title', 'versions', 'repository'));
+        return view("themes.$repository->theme.code", compact('code', 'pages', 'title', 'versions', 'repository'));
     }
 
     public function singleVersion($repo, $version, Request $request)
@@ -102,7 +102,7 @@ class MarkdownController extends Controller
             $code = str_replace($search_string, "<span style='background-color: yellow; font-weight: bold'>$search_string</span>", $code);
         }
 
-        return view('themes.cleanblue.code', compact('code', 'pages', 'title', 'versions', 'currentVersion', 'repository'));
+        return view("themes.$repository->theme.code", compact('code', 'pages', 'title', 'versions', 'currentVersion', 'repository'));
     }
 
     public function version($repo, $version, $slug, Request $request)
@@ -139,7 +139,7 @@ class MarkdownController extends Controller
             $code = str_replace($search_string, "<span style='background-color: yellow; font-weight: bold'>$search_string</span>", $code);
         }
 
-        return view('themes.cleanblue.code', compact('code', 'pages', 'title', 'versions', 'currentVersion', 'repository'));
+        return view("themes.$repository->theme.code", compact('code', 'pages', 'title', 'versions', 'currentVersion', 'repository'));
     }
 
     // public function search($repo, Request $request)
@@ -203,7 +203,7 @@ class MarkdownController extends Controller
 
         $searchQuery = $request->input('q');
 
-        return view('themes.cleanblue.search', compact('pages', 'title', 'versions', 'repository', 'results', 'searchQuery'));
+        return view("themes.$repository->theme.search", compact('pages', 'title', 'versions', 'repository', 'results', 'searchQuery'));
     }
 
     // public function download($response, $username, $repo, $additional = '')

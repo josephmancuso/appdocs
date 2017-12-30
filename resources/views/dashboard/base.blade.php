@@ -17,7 +17,7 @@
     <div>
         <nav class="navbar navbar-default navigation-clean" style="background-color:rgb(255,255,255);background-image:url(&quot;/themes/cleanblue/img/header_image.jpg&quot;);margin-bottom:0px;">
             <div class="container">
-                <div class="navbar-header"><a class="navbar-brand" href="#" style="color:rgb(255,255,255);"><i class="fa fa-book"></i> DocsForCode </a><button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
+                <div class="navbar-header"><a class="navbar-brand" href="/home" style="color:rgb(255,255,255);"><i class="fa fa-book"></i> DocsForCode </a><button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
                 <div
                     class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav navbar-right">

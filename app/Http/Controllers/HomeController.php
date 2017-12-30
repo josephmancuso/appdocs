@@ -31,7 +31,7 @@ class HomeController extends Controller
      */
     public function show()
     {
-        $repos = Auth::user()->repositories();
+        $repos = Auth::user()->publicRepositories();
 
         $repoList = Repositories::where('user_id', Auth::user()->id)->get();
 
@@ -145,6 +145,14 @@ class HomeController extends Controller
         $repo->name = $request->input('name');
         $repo->default_version = $request->input('default_version');
         $repo->docs_location = $request->input('docs_location');
+
+        if(Auth::user()->subscribedToPlan(['private', 'organization'])) {
+            $repo->theme = $request->input('theme');
+        } else {
+            $repo->theme = 'basic';
+        }
+        
+
 
         if ($request->has('is_wiki')) {
             $repo->wiki = 1;
