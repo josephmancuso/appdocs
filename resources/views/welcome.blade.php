@@ -1,94 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Meta Information -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('spark::layouts.app')
 
-    <title>@yield('title', config('app.name'))</title>
+@section('content')
+   <div class="container">
+        <div class="row">
+            <div class="panel panel-success">
+                <div class="panel-body">
+                    <h2 class="text-center">Easily host and maintain documentation for your GitHub Repos</h2>
+                    <hr>
 
-    <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
+                    <h3>How It Works:</h3>
 
-    <style>
-        body, html {
-            background: url('/img/spark-bg.png');
-            background-repeat: repeat;
-            background-size: 300px 200px;
-            height: 100%;
-            margin: 0;
-        }
+                    <p>
+                        <ul>
+                            <li>Create a <code>docs/</code> folder at the root of your repository with markdown files</li>
+                            <li>Simply <a href="/login" class="btn btn-success">Sigin in </a> with your GitHub account</li>
+                            <li>Connect your repository</li>
+                            <li>View your documentation hosted at this site</li>
+                            <li><b>If you don't have a <code>docs/</code> folder then it will simply show default documentation</b></li>
+                        </ul>
+                    </p>
 
-        .full-height {
-            min-height: 100%;
-        }
-
-        .flex-column {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .flex-fill {
-            flex: 1;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-
-        .text-center {
-            text-align: center;
-        }
-
-        .links {
-            padding: 1em;
-            text-align: right;
-        }
-
-        .links a {
-            text-decoration: none;
-        }
-
-        .links button {
-            background-color: #3097D1;
-            border: 0;
-            border-radius: 4px;
-            color: white;
-            cursor: pointer;
-            font-family: 'Open Sans';
-            font-size: 14px;
-            font-weight: 600;
-            padding: 15px;
-            text-transform: uppercase;
-            width: 100px;
-        }
-    </style>
-</head>
-<body>
-    <div class="full-height flex-column">
-        <nav class="links">
-            <a href="/login" style="margin-right: 15px;">
-                <button>
-                    Login
-                </button>
-            </a>
-
-            <a href="/register">
-                <button>
-                    Register
-                </button>
-            </a>
-        </nav>
-
-        <div class="flex-fill flex-center">
-            <h1 class="text-center">
-                <img src="/img/color-logo.png">
-            </h1>
+                    <p>
+                        <b>You may also add a webhook to your repository to maintain your documentation and versions when you do things like pushes and releases</b>
+                    </p>
+                </div>
+            </div>
         </div>
-    </div>
-</body>
-</html>
+   </div>
+@endsection

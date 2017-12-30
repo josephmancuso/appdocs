@@ -1,3 +1,7 @@
-<a class="navbar-brand" href="/home">
-    <img src="/img/mono-logo.png" style="height: 32px;">
+<a class="navbar-brand" href="http://orderinghero.com/home">
+    @if(isset($repository))
+        {{ $repository->name }}
+    @else
+        {{ 'Orderinghero.com' }}
+    @endif
 </a>

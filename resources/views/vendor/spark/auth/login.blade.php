@@ -5,6 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
+            {{--
                 <div class="panel-heading">Login</div>
 
                 <div class="panel-body">
@@ -53,9 +54,12 @@
                             </div>
                         </div>
                     </form>
-                    <a href="/login/github">
-                        <button class="btn btn-default"><img src="{{ asset('img/Octocat.png') }}" style="height: 30px"> Login with Github</button>
-                    </a>
+                --}}
+                    <div class="text-center" style="padding: 20px;">
+                        <a href="/login/github">
+                            <button class="btn btn-default"><img src="{{ asset('img/Octocat.png') }}" style="height: 30px"> Login with Github</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

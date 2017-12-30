@@ -23,8 +23,10 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/login" class="navbar-link">Login</a></li>
+                <li><a href="http://orderinghero.com/login" class="navbar-link">Login</a></li>
+                {{--
                 <li><a href="/register" class="navbar-link">Register</a></li>
+                --}}
             </ul>
         </div>
     </div>

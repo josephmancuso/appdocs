@@ -10,7 +10,17 @@
                 <div class="panel-body">
                     <label for="versions">Select a Version</label>
 
+                    <select id="select-menu" class="form-control">
+                    @if(isset($currentVersion))
+                        <option>{{ $currentVersion }} </option>
+                    @else
+                        <option disabled selected>{{ $repository->default_version }}</option>
+                    @endif
                     
+                    @foreach($versions as $version)
+                        <option value="/v/{{ $version }}">{{ $version }}</option>
+                    @endforeach
+                    </select>
                 </div>
             </div>
 
@@ -56,7 +66,16 @@
                 </div>
 
                 <div class="panel-body">
-                    {!! $code !!}
+                    @foreach($results as $filename => $resultList)
+                        <h3> {{ $filename }} </h3><hr>
+                        @foreach($resultList as $result)
+                        <div><a class="navbar-link" style="color: black" href="/{{ str_replace('.md', '', "docs/$filename") }}?q={{ $searchQuery }}"> {!! $result !!} </a></div><br>
+                        @endforeach
+                    @endforeach
+
+                    @unless($results)
+                        No Results Found matching "{{ $searchQuery }}"
+                    @endunless
                 </div>
                 
             </div>
