@@ -37,7 +37,9 @@
                                         </a>
                                     @else
                                         <p>
-                                            <button class="btn btn-danger">Limited Reached. Please Upgrade</button>
+                                            <a href="/settings#/subscription">
+                                                <button class="btn btn-danger">Limited Reached. Click To Upgrade</button>
+                                            </a>
                                         </p>
                                     @endif
                                 @endif
@@ -84,7 +86,9 @@
                                             </a>
                                         @else
                                             <p>
-                                                You have cannot create anymore repos. Please consider upgrading to a premium plan
+                                                <a href="/settings#/subscription">
+                                                    <button class="btn btn-danger">Limited Reached. Click To Upgrade</button>
+                                                </a>
                                             </p>
                                         @endif
                                     @endif
