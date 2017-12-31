@@ -15,16 +15,16 @@
 
 Route::domain('{repo}.'.env('SUBDOMAIN_URL'))->group(function () {
     // show the default version
-    Route::get('/', 'MarkdownController@show');
+    Route::get('/', 'MarkdownController@show')->where('repo', '^((?!www).)*$');
 
     // show the default version
-    Route::get('/docs/{slug}', 'MarkdownController@single');
+    Route::get('/docs/{slug}', 'MarkdownController@single')->where('repo', '^((?!www).)*$');;
 
     // show the default version
-    Route::get('/v/{version}', 'MarkdownController@singleVersion');
-    Route::get('/v/{version}/{slug}', 'MarkdownController@version');
+    Route::get('/v/{version}', 'MarkdownController@singleVersion')->where('repo', '^((?!www).)*$');;
+    Route::get('/v/{version}/{slug}', 'MarkdownController@version')->where('repo', '^((?!www).)*$');;
 
-    Route::get('/search/{version}', 'MarkdownController@searchVersion');
+    Route::get('/search/{version}', 'MarkdownController@searchVersion')->where('repo', '^((?!www).)*$');;
 });
 
 Route::get('/home', 'HomeController@show');
