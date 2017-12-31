@@ -37,12 +37,11 @@ Route::post('/home/repo/{id}', 'HomeController@detailStore');
 Route::post('/repo/download', 'HomeController@download');
 
 
-Route::get('/login/github', 'auth\LoginController@githubToProvider');
-Route::get('/integration/github', 'auth\LoginController@githubFromProvider');
+Route::get('/login/github', 'Auth\LoginController@githubToProvider');
+Route::get('/integration/github', 'Auth\LoginController@githubFromProvider');
 
 
 Route::get('/download/{username}/{repo}', 'MarkdownController@download');
-Route::get('/testing', 'MarkdownController@testFetch');
 
 Route::post('/hook', 'UpdateController@hook');
 
