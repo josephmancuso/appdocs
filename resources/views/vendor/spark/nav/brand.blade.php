@@ -1,7 +1,7 @@
-<a class="navbar-brand" href="http://orderinghero.com/home">
+<a class="navbar-brand" href="http://{{ env('APP_URL') }}/home">
     @if(isset($repository))
         {{ $repository->name }}
     @else
-        {{ 'Orderinghero.com' }}
+        {{ env('APP_NAME') }}
     @endif
 </a>

@@ -24,7 +24,7 @@
                                     
                                     @foreach($repoList as $siteRepository)
                                         @if ($siteRepository->repo_id == $repo['id'])
-                                            <a href="http://{{ $siteRepository->name }}.orderinghero.com" target="_blank">
+                                            <a href="http://{{ $siteRepository->name }}.{{ env('SUBDOMAIN_URL') }}" target="_blank">
                                                 <button class="btn btn-default"><span class="fa fa-book"></span> Docs</button>
                                             </a>
                                         @endif
@@ -73,7 +73,7 @@
                                         
                                         @foreach($repoList as $siteRepository)
                                             @if ($siteRepository->repo_id == $repo['id'])
-                                                <a href="http://{{ $siteRepository->name }}.orderinghero.com" target="_blank">
+                                                <a href="http://{{ $siteRepository->name }}.{{ env('SUBDOMAIN_URL') }}" target="_blank">
                                                     <button class="btn btn-default"><span class="fa fa-book"></span> Docs</button>
                                                 </a>
                                             @endif

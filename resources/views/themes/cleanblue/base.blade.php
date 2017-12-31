@@ -8,7 +8,7 @@
         @if(isset($repository))
             {{ $repository->name }} Documentation
         @else
-            {{ 'Orderinghero.com' }}
+            {{ env('APP_URL') }}
         @endif
     </title>
 
@@ -30,13 +30,13 @@
                 @if(isset($repository))
                     <span class="fa fa-book"></span> {{ $repository->name }}
                 @else
-                    {{ 'Orderinghero.com' }}
+                    {{ env('APP_URL') }}
                 @endif
                 </a><button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
                 <div
                     class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li role="presentation"><a href="http://orderinghero.com/login" style="color:rgb(255,255,255);">Login </a></li>
+                        <li role="presentation"><a href="http://{{ env('APP_URL') }}/login" style="color:rgb(255,255,255);">Login </a></li>
                     </ul>
                     <!--
                     <ul class="nav navbar-nav navbar-left">
