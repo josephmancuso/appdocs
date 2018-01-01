@@ -12,11 +12,10 @@
 
                     <p>
                         <ul>
-                            <li>Create a <code>docs/</code> folder at the root of your repository with markdown files</li>
                             <li>Simply <a href="/login" class="btn btn-success">Sign in </a> with your GitHub account</li>
                             <li>Connect your repository</li>
                             <li>View your documentation hosted at this site</li>
-                            <li><b>If you don't have a <code>docs/</code> folder then it will simply show default documentation</b></li>
+                            <li>You can then choose which directory on GitHub your documentation is in (<code>docs/</code> by default)</li>
                         </ul>
                     </p>
 

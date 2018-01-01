@@ -24,7 +24,13 @@
                     <form action="/home/repo/{{ $repository->repo_id }}" method="POST">
                         {{ csrf_field() }}
                         <div class="form-group" style="margin-bottom:1px;"><label>Url</label></div>
-                        <div style="margin-bottom:7px;margin-top:-6px;"><a href="http://{{ $repository->name }}.{{ env('SUBDOMAIN_URL') }}" target="_blank">http://{{ $repository->name }}.{{ env('SUBDOMAIN_URL') }}</a></div>
+                        <div style="margin-bottom:7px;margin-top:-6px;">
+                            @if($repository->name)
+                                <a href="http://{{ $repository->name }}.{{ env('SUBDOMAIN_URL') }}" target="_blank">http://{{ $repository->name }}.{{ env('SUBDOMAIN_URL') }}</a>
+                            @else
+                                <div class="alert alert-danger">Url not available. A repository already exists with the name you chose during setup. Enter a name below.</div>
+                            @endif
+                        </div>
                         <div class="form-group"><label>Name </label><input type="text" value="{{ $repository->name }}" name="name" required="" class="form-control"></div>
                         <div class="form-group">
                             <label>Default Version</label>

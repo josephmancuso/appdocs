@@ -73,7 +73,8 @@ class HomeController extends Controller
         $singleRepo = $repo = $client->api('repo')->showById($id);
 
         // save repository in repo
-        if (!Repositories::where('name', $singleRepo['name'])->first()) {
+        // if the repository has not been added yet.
+        if (!Repositories::where('repo_id', $singleRepo['id'])->where('user_id', Auth::user()->id)->first()) {
             // create a new repo
             $repository = new Repositories();
             $repository->repo_id = $singleRepo['id'];
@@ -81,6 +82,7 @@ class HomeController extends Controller
             $repository->owner = $singleRepo['owner']['id'];
             $repository->docs_location = 'docs';
 
+            // if the repository name doesn't exist
             if (!Repositories::where('name', $singleRepo['name'])->exists()) {
                 $repository->name = $singleRepo['name'];
                 // try fetch it
@@ -105,6 +107,7 @@ class HomeController extends Controller
         $repos = Auth::user()->repositories();
         $organizations = Auth::user()->getOrganizationRepositories();
 
+        
         return redirect()->route('repoDetails', ['id' => $repository->repo_id])->with(['message' => "Great! You're repository has been verified. You can optionally add this webhook: <code>http://".env('APP_URL')."/hook</code> to your settings so we can maintain your documentation for you. More info can be found at the bottom of this page."]);
         // return view('home-repo', compact('repos', 'id', 'singleRepo', 'repository', 'repoList', 'organizations'));
     }
@@ -120,7 +123,12 @@ class HomeController extends Controller
 
         $repos = Auth::user()->repositories();
 
-        $repoVersions = (new MarkdownController)->cleanDirectory(base_path("repos/$repository->name"));
+        if ($repository->name) {
+            $repoVersions = (new MarkdownController)->cleanDirectory(base_path("repos/$repository->name"));
+        } else {
+            $repoVersions = ['current'];
+        }
+        
         $organizations = Auth::user()->getOrganizationRepositories();
 
         return view('dashboard.details', compact('repos', 'id', 'singleRepo', 'repository', 'repoList', 'repoVersions', 'organizations'));
@@ -138,8 +146,10 @@ class HomeController extends Controller
                 return redirect()->back()->with(['error' => 'There is already a repo hosted here with that name. Please try a different name']);
             }
 
-            // need to change the name of the directory as well.
-            rename(base_path("repos/$repo->name"), base_path("repos/$request->name"));
+            // need to change the name of the directory as well if the directory exists
+            if ($repo->name && file_exists(base_path("repos/$repo->name"))) {
+                rename(base_path("repos/$repo->name"), base_path("repos/$request->name"));
+            }
         }
 
         $repo->name = $request->input('name');
