@@ -28,8 +28,8 @@ Route::domain('{repo}.'.env('SUBDOMAIN_URL'))->group(function () {
 });
 
 Route::get('/home', 'HomeController@show');
-Route::get('/home/private', 'HomeController@showPrivate');
-Route::get('/home/organization', 'HomeController@showOrganization');
+Route::get('/home/private', 'HomeController@showPrivate')->middleware('anyPlan');
+Route::get('/home/organization', 'HomeController@showOrganization')->middleware('organizationPlan');
 Route::get('/home/repo/add/{id}', 'HomeController@repo');
 Route::get('/home/repo/{id}', 'HomeController@detail')->name('repoDetails');
 Route::post('/home/repo/{id}', 'HomeController@detailStore');

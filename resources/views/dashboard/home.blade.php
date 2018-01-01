@@ -6,8 +6,12 @@
     <hr>
     <div style="margin-top:20px;">
         <div class="container">
+
+            @if(session('message'))
+                <div class="alert alert-danger">{!! session('message') !!}</div>
+            @endif
+
             <!-- Repository Row -->
-            
             @if(!isset($organizations)) 
                 <!-- show public or private repos -->
                 @foreach($repos as $repo)

@@ -57,5 +57,10 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'subscribed' => \Laravel\Spark\Http\Middleware\VerifyUserIsSubscribed::class,
         'teamSubscribed' => \Laravel\Spark\Http\Middleware\VerifyTeamIsSubscribed::class,
+
+        // User Created Middleware
+        'privatePlan' => \App\Http\Middleware\PrivatePlan::class,
+        'anyPlan' => \App\Http\Middleware\AnyPlan::class,
+        'organizationPlan' => \App\Http\Middleware\OrganizationPlan::class,
     ];
 }
