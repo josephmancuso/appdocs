@@ -76,7 +76,11 @@
                         <form action="/repo/download" method="POST">
                             {{ csrf_field() }}
                             <input type="hidden" name="repo_id" value="{{ $repository->repo_id }}">
-                            <button type="submit" class="btn btn-primary">Manually Download</button>
+                            @if ($repository->name)
+                                <button type="submit" class="btn btn-primary">Manually Download</button>
+                            @else
+                                <div class="alert alert-danger">Please add a name in the name field first</div>
+                            @endif
                         </form>
                 </div>
             </div>
