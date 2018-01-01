@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
 use App\Repositories;
+
 
 class MarkdownController extends Controller
 {
@@ -259,9 +261,11 @@ class MarkdownController extends Controller
         $client = new \GuzzleHttp\Client();
 
         try {
-            $res = $client->request('GET', "https://api.github.com/repos/$github_user/$github_repo/contents/$repository->docs_location");
+            // $res = $client->request('GET', "https://api.github.com/repos/$github_user/$github_repo/contents/$repository->docs_location");
 
-            $response = json_decode($res->getBody()->getContents());
+            // $response = json_decode($res->getBody()->getContents());
+
+            $response = Auth::user()->github()->api('repos')->contents()->show($github_user, $github_repo, $repository->docs_location);
 
             if (!file_exists(base_path("repos/$repository->name/"))) {
                 mkdir(base_path("repos/$repository->name"));
@@ -281,8 +285,9 @@ class MarkdownController extends Controller
 
             // fetch all the files from the api call and put them in the folder
             foreach($response as $doc) {
-                $getFile = $client->request('GET', "https://raw.githubusercontent.com/$github_user/$github_repo/master/$repository->docs_location/$doc->name");
-                file_put_contents(base_path("repos/$repository->name/$directory/".$doc->name), $getFile->getBody()->getContents());
+                $file = Auth::user()->github()->api('repos')->contents()->show($github_user, $github_repo, $repository->docs_location.'/'.$doc['name']);
+                $getFile = $client->request('GET', $file['download_url']);
+                file_put_contents(base_path("repos/$repository->name/$directory/".$doc['name']), $getFile->getBody()->getContents());
             }
 
             // check if a home.md file exists
@@ -307,7 +312,7 @@ class MarkdownController extends Controller
                 file_put_contents(base_path("repos/$repository->name/$directory/home.md"), '### Create your own Home.md file to replace this one');
             }
 
-            return 'could not fetch repo. failed';
+            return 'Could not fetch repo. Invalid URL passed. Check the Documentation Location on the detail page';
         }
 
         return 'something bad happened';
