@@ -265,7 +265,7 @@ class MarkdownController extends Controller
 
             // $response = json_decode($res->getBody()->getContents());
 
-            $response = Auth::user()->github()->api('repos')->contents()->show($github_user, $github_repo, $repository->docs_location);
+            $response = $repository->user->github()->api('repos')->contents()->show($github_user, $github_repo, $repository->docs_location);
 
             if (!file_exists(base_path("repos/$repository->name/"))) {
                 mkdir(base_path("repos/$repository->name"));
@@ -285,7 +285,7 @@ class MarkdownController extends Controller
 
             // fetch all the files from the api call and put them in the folder
             foreach($response as $doc) {
-                $file = Auth::user()->github()->api('repos')->contents()->show($github_user, $github_repo, $repository->docs_location.'/'.$doc['name']);
+                $file = $repository->user->github()->api('repos')->contents()->show($github_user, $github_repo, $repository->docs_location.'/'.$doc['name']);
                 $getFile = $client->request('GET', $file['download_url']);
                 file_put_contents(base_path("repos/$repository->name/$directory/".$doc['name']), $getFile->getBody()->getContents());
             }
