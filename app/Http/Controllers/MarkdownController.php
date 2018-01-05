@@ -364,11 +364,15 @@ class MarkdownController extends Controller
             if (!file_exists(base_path("repos/$repository->name/"))) {
                 mkdir(base_path("repos/$repository->name"));
             }
+
+            if (file_exists(base_path("repos/$repository->name/$directory/"))) {
+                $this->rmdir(base_path("repos/$repository->name/$directory"));
+            }
             
             if (!file_exists(base_path("repos/$repository->name/$directory/"))) {
                 mkdir(base_path("repos/$repository->name/$directory"));
             } else {
-                $this->rmdir(base_path("repos/$repository->name/$directory"));
+                
             }
 
             $files = glob(base_path("repos/$repository->name/$directory/*")); // get all file names
@@ -410,7 +414,7 @@ class MarkdownController extends Controller
             }
 
             return 'successful';
-        } catch(\GuzzleHttp\Exception\ClientException $e) {
+        } catch(\GuzzleHttp\Exception\ClientException | \Github\Exception\RuntimeException $e) {
             // docs directory does not exist
 
             if (!file_exists(base_path("repos/$repository->name/"))) {
