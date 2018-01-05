@@ -18,8 +18,10 @@
         "laravel/socialite": "^3.0",
         "laravel/spark": "*@dev",
         "laravel/tinker": "~1.0",
+        "league/commonmark": "^0.15",
         "netcarver/textile": "3.6.*",
-        "php-http/guzzle6-adapter": "^1.1"
+        "php-http/guzzle6-adapter": "^1.1",
+        "webuni/commonmark-table-extension": "^0.6.1"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

@@ -20,6 +20,7 @@
     <link href="/css/prism.css" rel="stylesheet">
     <link rel="stylesheet" href="/themes/cleanblue/css/styles.min.css">
     <link rel="stylesheet" href="/css/accordion.css">
+    <link rel="stylesheet" href="/css/markdown-tables.css">
     
 </head>
 
