@@ -45,16 +45,7 @@
                 </div>
 
                 <div class="panel-body">
-                    <ul class="nav nav-pills nav-stacked">
-                        @foreach($pages as $page)
-                            @if(isset($currentVersion))
-                                <li role="presentation"><a href="/v/{{ $currentVersion }}/{{ str_replace('.md', '', $page) }}">{{ str_replace('.md', '', str_replace('-', ' ', $page)) }}</a></li>
-                            @else
-                                <li role="presentation"><a href="/docs/{{ str_replace('.md', '', $page) }}">{{ str_replace('.md', '', str_replace('-', ' ', $page)) }}</a></li>
-                            @endif
-                            
-                        @endforeach
-                    </ul>
+                    @include('themes.basic.partials.pages')
                 </div>
             </div>
         </div>
@@ -78,7 +69,7 @@
 
 @section('scripts')
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-<script   src="https://code.jquery.com/jquery-3.2.1.slim.min.js"   integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="   crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"   integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="   crossorigin="anonymous"></script>
 <script>
 $(function(){
       // bind change event to select
@@ -91,4 +82,8 @@ $(function(){
       });
     });
 </script>
+@endsection
+
+@section('bottom_js')
+<script src="/js/accordion.js"></script>
 @endsection

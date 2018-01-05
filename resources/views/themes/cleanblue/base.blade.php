@@ -19,6 +19,7 @@
     
     <link href="/css/prism.css" rel="stylesheet">
     <link rel="stylesheet" href="/themes/cleanblue/css/styles.min.css">
+    <link rel="stylesheet" href="/css/accordion.css">
     
 </head>
 
@@ -73,7 +74,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-6 text-right" style="padding-top:15px;padding-bottom:15px;">
                     <form action="/search/{{ $currentVersion ?? 'current' }}" method="GET">
                     
-                        <span><i class="fa fa-search" style="margin-right:7px;color:#555555;"></i></span>
+                        <span class="hidden-xs"><i class="fa fa-search" style="margin-right:7px;color:#555555;"></i></span>
                         <input type="search" name="q" placeholder="Search" style="background-color:transparent;border:none;margin-right:30px;">
                     
                     </form>
@@ -101,6 +102,8 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="/js/prism.js"></script>
+    <script src="/js/accordion.js"></script>
+
 </body>
 
 </html>

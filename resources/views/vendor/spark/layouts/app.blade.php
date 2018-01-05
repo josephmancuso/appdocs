@@ -15,6 +15,7 @@
     <!-- CSS -->
     <link href="/css/sweetalert.css" rel="stylesheet">
     <link href="/css/prism.css" rel="stylesheet">
+    <link href="/css/accordion.css" rel="stylesheet">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
@@ -51,5 +52,7 @@
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="/js/sweetalert.min.js"></script>
     <script src="/js/prism.js"></script>
+
+    @yield('bottom_js')
 </body>
 </html>

@@ -18,13 +18,15 @@ Route::domain('{repo}.'.env('SUBDOMAIN_URL'))->group(function () {
     Route::get('/', 'MarkdownController@show')->where('repo', '^((?!www).)*$');
 
     // show the default version
-    Route::get('/docs/{slug}', 'MarkdownController@single')->where('repo', '^((?!www).)*$');;
+    Route::get('/docs/{slug}', 'MarkdownController@single')->where('repo', '^((?!www).)*$');
+    Route::get('/docs/{subdirectory}/{slug}', 'MarkdownController@subdirectorySingle')->where('repo', '^((?!www).)*$');
 
     // show the default version
-    Route::get('/v/{version}', 'MarkdownController@singleVersion')->where('repo', '^((?!www).)*$');;
-    Route::get('/v/{version}/{slug}', 'MarkdownController@version')->where('repo', '^((?!www).)*$');;
+    Route::get('/v/{version}', 'MarkdownController@singleVersion')->where('repo', '^((?!www).)*$');
+    Route::get('/v/{version}/{slug}', 'MarkdownController@version')->where('repo', '^((?!www).)*$');
+    Route::get('/v/{version}/{subdirectory}/{slug}', 'MarkdownController@subdirectoryVersion')->where('repo', '^((?!www).)*$');
 
-    Route::get('/search/{version}', 'MarkdownController@searchVersion')->where('repo', '^((?!www).)*$');;
+    Route::get('/search/{version}', 'MarkdownController@searchVersion')->where('repo', '^((?!www).)*$');
 });
 
 Route::get('/home', 'HomeController@show');
