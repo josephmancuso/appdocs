@@ -2,8 +2,6 @@
 
 
 @section('content')
-    
-
     <h3 style="margin-left:23px;">{{ $singleRepo['name'] }} Details</h3>
     @if(session('message'))
         <div class="alert alert-success">
@@ -86,16 +84,4 @@
             </div>
         </div>
     </div>
-    <hr>
-    <section style="padding-left:23px;">
-        <h3>Webhook: http://{{ env('APP_URL') }}/hook</h3>
-        <p style="padding-right:24px;">You may also put this webhook in the settings of your repo so we can maintain your documentation for you. Whenever you push to your repo, we will be able to update the documentation on this site. When you release, we save that version of your
-            documentation.</p>
-
-        <h3>How To</h3>
-        <p>
-            Go to your repo <a href="{{ $singleRepo['html_url'].'/settings/hooks/new' }}" target="_blank">settings page</a> and add the Payload URL: <code>{{ "http://".env('APP_URL')."/hook" }}</code>, set the Content type as <code>application/json</code>, leave the secret blank and select <code>Send me <strong>everything</strong></code> for the events.
-            Make sure <code>Active</code> is selected and click <code>Add webhook</code>
-        </p>
-    </section>
 @endsection

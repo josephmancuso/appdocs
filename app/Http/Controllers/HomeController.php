@@ -94,6 +94,8 @@ class HomeController extends Controller
             }
 
             $repository->save();
+
+            $repository->addWebhook();
             
             if (!$repository->name) {
                 return redirect()->route('repoDetails', ['id' => $singleRepo['id']])->with(['error' => 'There is already a repo hosted here with that name. Please try a different name']);
@@ -101,6 +103,7 @@ class HomeController extends Controller
         } else {
             $repository = Repositories::where('repo_id', $singleRepo['id'])->first();
         }
+
         $repoList = Repositories::where('user_id', Auth::user()->id)->get();
         
 
@@ -108,8 +111,7 @@ class HomeController extends Controller
         $organizations = Auth::user()->getOrganizationRepositories();
 
         
-        return redirect()->route('repoDetails', ['id' => $repository->repo_id])->with(['message' => "Great! You're repository has been verified. You can optionally add this webhook: <code>http://".env('APP_URL')."/hook</code> to your settings so we can maintain your documentation for you. More info can be found at the bottom of this page."]);
-        // return view('home-repo', compact('repos', 'id', 'singleRepo', 'repository', 'repoList', 'organizations'));
+        return redirect()->route('repoDetails', ['id' => $repository->repo_id])->with(['message' => "Great! You're repository has been verified. A webhook has been added to your repo so we can maintain your documentation for you. Just keep working on your documentation in your repo and we'll do the rest."]);
     }
 
     public function detail($id) 

@@ -368,7 +368,7 @@ class MarkdownController extends Controller
             if (file_exists(base_path("repos/$repository->name/$directory/"))) {
                 $this->rmdir(base_path("repos/$repository->name/$directory"));
             }
-            
+
             if (!file_exists(base_path("repos/$repository->name/$directory/"))) {
                 mkdir(base_path("repos/$repository->name/$directory"));
             } else {
